@@ -10,8 +10,12 @@
  *  unedited original is kept in src/assets/brand/portrait-original.png.
  * ─────────────────────────────────────────────────────────────
  */
-import logo from '@/assets/brand/logo.png'
+// Display renditions of the official assets: lossless scale-downs, same pixels
+// at display size. The full-size files (logo.png, portrait-plain-shirt.webp)
+// stay in src/assets/brand untouched.
+import logo from '@/assets/brand/logo-512.webp'
 import portrait from '@/assets/brand/portrait-plain-shirt.webp'
+import portraitSmall from '@/assets/brand/portrait-plain-shirt-760.webp'
 
 export const brand = {
   name: 'Mahmoud Taher',
@@ -23,9 +27,12 @@ export const brand = {
     'Transforming ideas into powerful visual experiences through photography, motion, and creative storytelling.',
   specializations: ['Product Photography', 'Reels Production', 'UGC Creation', 'Event Photography'],
 
+  /** Official logo, 463×512 lossless (largest display is ~160px tall). */
   logo,
   /** Transparent cut-out portrait. Native pixel size, used for layout maths. */
   portrait: { src: portrait, width: 1086, height: 1448 },
+  /** The same portrait at 760px wide (lossless) — the WebGL texture on phones and tablets. */
+  portraitSmall: portraitSmall,
 
   /** Contact channels, in display order. `handle` is read off each URL. */
   socials: [

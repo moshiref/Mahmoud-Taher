@@ -109,6 +109,12 @@ Routing is a tiny History-API router in `src/lib/router.ts`, with no dependency.
 - **Quality tiers:** set from device capability. Drei's `PerformanceMonitor` drops DPR under load.
 - **Resource disposal:** all imperatively created geometries and materials are disposed on unmount.
 - **Navigation:** skip link, keyboard-closable menu, focus styles, alpha-accurate portrait hit-testing.
+- **3D renders only when needed:** the hero and About's "08" register with `lib/sceneActivity` (an IntersectionObserver). The scene runs its 60 fps loop only while one of them is on screen; elsewhere (Work, Contact, the Products / Reels / UGC pages) it renders on scroll, resize or pointer move only, and not at all while the page is still.
+- **Shaders compile ahead of use:** `ShaderWarmup` (in `scenes/Experience.tsx`) renders the scene once into a 1×1 scissor box as each part mounts, so nothing compiles mid-scroll. `gl.debug.checkShaderErrors` is on in development only (it stalls every compile).
+- **Reveals are built on arrival:** `Reveal` and `SplitReveal` only hide waiting content; the GSAP tween (and the text split) is created when it reaches the screen, not all at once on load.
+- **Lighter images:** the site uses display renditions of the official assets, lossless scale-downs with the originals kept untouched: `logo-512.webp` (42 KB instead of the 259 KB PNG) and, for the phone/tablet WebGL texture, `portrait-plain-shirt-760.webp` (544 KB instead of 1065 KB). The portrait texture is uploaded to the GPU once.
+- **Phones and tablets** (`hover: none` or under 900px): no film-grain overlay and no blur behind the scrolled header. Both were full-screen effects recomposited every frame, and barely visible on a small screen.
+- **Known build quirk:** the CSS minifier keeps only `-webkit-backdrop-filter` for the header, so in Chrome the desktop header blur doesn't show in production builds (it does in dev and Safari).
 
 ## Parked from earlier iterations
 

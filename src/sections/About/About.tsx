@@ -5,6 +5,7 @@ import { SplitReveal } from '@/components/motion/SplitReveal'
 import { about } from '@/content/about'
 import { useMotion } from '@/app/providers/MotionProvider'
 import { aboutScene } from '@/lib/aboutScene'
+import { watchLiveRegion } from '@/lib/sceneActivity'
 import { hasWebGL } from '@/lib/device'
 import { ServicesIndex } from './ServicesIndex'
 import styles from './About.module.css'
@@ -26,8 +27,11 @@ export function About() {
   // Hand the number's slot to the 3D scene.
   useEffect(() => {
     aboutScene.slot = slot.current
+    // The number turns with scroll and rises in: the scene animates while it is on screen.
+    const stopLive = slot.current ? watchLiveRegion(slot.current) : undefined
     return () => {
       aboutScene.slot = null
+      stopLive?.()
     }
   }, [])
 

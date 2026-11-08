@@ -48,8 +48,11 @@ export function Header() {
         end: 'max',
         onUpdate: (self) => {
           const y = self.scroll()
-          el.dataset.scrolled = String(y > 24)
-          el.dataset.hidden = String(!openRef.current && self.direction === 1 && y > window.innerHeight * 0.6)
+          // Write only on change: this runs every scroll frame.
+          const scrolled = String(y > 24)
+          const hidden = String(!openRef.current && self.direction === 1 && y > window.innerHeight * 0.6)
+          if (el.dataset.scrolled !== scrolled) el.dataset.scrolled = scrolled
+          if (el.dataset.hidden !== hidden) el.dataset.hidden = hidden
         },
       })
     },

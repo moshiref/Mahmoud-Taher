@@ -22,3 +22,14 @@
     animation: none;
   }
 }
+
+/*
+ * Phones and tablets: no grain. It is a 4x-screen layer blended over every
+ * frame, and at 7% opacity on a small screen it is barely visible — measured
+ * at about a third of the heavy frames while scrolling.
+ */
+@media (hover: none), (max-width: 899px) {
+  .grain {
+    display: none;
+  }
+}

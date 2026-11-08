@@ -46,6 +46,18 @@
   translate: 0 -100%;
 }
 
+/*
+ * Phones and tablets: no blur behind the bar. It is 94% opaque black, so the
+ * blur is barely visible, but re-blurring the page under a fixed bar on every
+ * scroll frame is expensive on mobile GPUs.
+ */
+@media (hover: none), (max-width: 899px) {
+  .header[data-scrolled='true'] {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
 .header[data-open='true'] {
   background: transparent;
   border-bottom-color: transparent;

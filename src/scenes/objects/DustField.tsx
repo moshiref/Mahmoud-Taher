@@ -64,10 +64,14 @@ export function DustField({ count, reduced }: { count: number; reduced: boolean 
     [],
   )
 
-  useFrame((state) => {
+  // Own clock, advanced by a capped step: when the scene idles (renders only on
+  // scroll), the dust continues smoothly instead of jumping ahead.
+  const time = useRef(0)
+  useFrame((_, dt) => {
     const m = material.current
     if (!m) return
-    m.uniforms.uTime.value = reduced ? 0 : state.clock.elapsedTime
+    time.current += Math.min(dt, 1 / 30)
+    m.uniforms.uTime.value = reduced ? 0 : time.current
     m.uniforms.uScroll.value = scrollState.y * 0.0025
     m.uniforms.uPixelRatio.value = dpr
   })

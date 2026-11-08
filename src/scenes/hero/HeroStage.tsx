@@ -17,6 +17,7 @@ import {
 } from 'three'
 import { heroStage, palette } from '@/config/scene'
 import { brand } from '@/content/brand'
+import type { DeviceTier } from '@/lib/device'
 import { heroIntro } from '@/lib/heroIntro'
 import { currentPath } from '@/lib/router'
 import { scrollState } from '@/lib/scrollStore'
@@ -47,21 +48,21 @@ const ALPHA_GRID = 64
  * slab (the site's own black), edged by a soft white backlight.
  * Everything is revealed by the intro values in lib/heroIntro.
  */
-export function HeroStage({ reduced }: { reduced: boolean }) {
+export function HeroStage({ reduced, quality }: { reduced: boolean; quality: DeviceTier }) {
   const layout = useThree((s) => (s.size.width / s.size.height < 1 ? heroStage.portrait : heroStage.landscape))
-  const texture = useTexture(brand.portrait.src)
+  // Phones/tablets get the 760px rendition (it is mip-mapped down to display size
+  // anyway). Texture settings are applied on load, before the first GPU upload,
+  // so the image is uploaded once (changing colorSpace later forces a re-upload).
+  const texture = useTexture(quality === 'low' ? brand.portraitSmall : brand.portrait.src, (t) => {
+    t.colorSpace = SRGBColorSpace
+    t.anisotropy = 4
+  })
   const group = useRef<Group>(null)
   const portrait = useRef<Group>(null)
   const hovered = useRef(false)
 
   // Never leave the page with a pointer cursor if the scene unmounts mid-hover.
   useEffect(() => () => void (document.documentElement.style.cursor = ''), [])
-
-  useEffect(() => {
-    texture.colorSpace = SRGBColorSpace
-    texture.anisotropy = 4
-    texture.needsUpdate = true
-  }, [texture])
 
   const aspect = brand.portrait.width / brand.portrait.height
   const ph = layout.portrait.height

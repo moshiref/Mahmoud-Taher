@@ -11,6 +11,7 @@ import { useMotion } from '@/app/providers/MotionProvider'
 import { hasWebGL, isFinePointer } from '@/lib/device'
 import { completeHeroIntro, heroIntro } from '@/lib/heroIntro'
 import { heroMarquee } from '@/lib/heroMarquee'
+import { watchLiveRegion } from '@/lib/sceneActivity'
 import styles from './Hero.module.css'
 
 /**
@@ -28,6 +29,9 @@ export function Hero() {
   // The scroll cue only appears when a section actually follows the hero.
   const [next, setNext] = useState<Element | null>(null)
   useEffect(() => setNext(root.current?.nextElementSibling ?? null), [])
+
+  // The hero's 3D (portrait, marquee) animates every frame only while the hero is on screen.
+  useEffect(() => (root.current ? watchLiveRegion(root.current) : undefined), [])
 
   // The 3D services marquee renders into this slot; hovering slows it to a drift.
   useEffect(() => {

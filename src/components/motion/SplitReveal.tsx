@@ -1,5 +1,5 @@
 import { createElement, useRef, type ElementType, type ReactNode } from 'react'
-import { SplitText, useGSAP } from '@/animation/gsap'
+import { ScrollTrigger, SplitText, useGSAP } from '@/animation/gsap'
 import { REVEAL_START, riseIn } from '@/animation/presets'
 import { duration, stagger } from '@/config/motion'
 import { useIntro } from '@/app/providers/IntroProvider'
@@ -40,36 +40,61 @@ export function SplitReveal({
   const { introDone } = useIntro()
 
   useGSAP(
-    () => {
+    (_, contextSafe) => {
       const el = ref.current
-      if (!el || reducedMotion) return
+      if (!el || reducedMotion || !contextSafe) return
       if (play === 'intro' && !introDone) {
         el.style.visibility = 'hidden'
         return
       }
-      el.style.visibility = ''
 
-      const split = SplitText.create(el, {
-        type: type === 'lines' ? 'lines' : `lines,${type}`,
-        mask: 'lines',
-        autoSplit: true,
-        linesClass: 'split-line',
-        onSplit(self) {
-          const targets = type === 'chars' ? self.chars : type === 'words' ? self.words : self.lines
-          return riseIn(targets, {
-            delay,
-            duration: type === 'chars' ? duration.slow : duration.epic * 0.75,
-            stagger: type === 'chars' ? stagger.chars : type === 'words' ? stagger.words : stagger.lines,
-            rotate: type === 'chars' ? 8 : 0,
-            transformOrigin: '0% 100%',
-            scrollTrigger: play === 'scroll' ? { trigger: el, start, once: true } : undefined,
-          })
-        },
-      })
+      // Scroll reveals split and animate only when the text reaches the screen
+      // (until then it is just hidden): splitting every heading up front was a
+      // large share of the intro's main-thread work on phones.
+      if (play === 'scroll') {
+        el.style.visibility = 'hidden'
+        let split: SplitText | undefined
+        const trigger = ScrollTrigger.create({
+          trigger: el,
+          start,
+          once: true,
+          onEnter: contextSafe(() => {
+            el.style.visibility = ''
+            split = splitAndRise(el)
+          }),
+        })
+        return () => {
+          trigger.kill()
+          split?.revert()
+          el.style.visibility = ''
+        }
+      }
+
+      el.style.visibility = ''
+      const split = splitAndRise(el)
       return () => split.revert()
     },
     { dependencies: [reducedMotion, introDone, play, type], scope: ref, revertOnUpdate: true },
   )
+
+  function splitAndRise(el: HTMLElement) {
+    return SplitText.create(el, {
+      type: type === 'lines' ? 'lines' : `lines,${type}`,
+      mask: 'lines',
+      autoSplit: true,
+      linesClass: 'split-line',
+      onSplit(self) {
+        const targets = type === 'chars' ? self.chars : type === 'words' ? self.words : self.lines
+        return riseIn(targets, {
+          delay,
+          duration: type === 'chars' ? duration.slow : duration.epic * 0.75,
+          stagger: type === 'chars' ? stagger.chars : type === 'words' ? stagger.words : stagger.lines,
+          rotate: type === 'chars' ? 8 : 0,
+          transformOrigin: '0% 100%',
+        })
+      },
+    })
+  }
 
   return createElement(as, { ref, className, id }, children)
 }
