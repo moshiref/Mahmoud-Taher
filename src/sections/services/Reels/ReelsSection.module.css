@@ -1,0 +1,216 @@
+.reels {
+  position: relative;
+}
+
+.pin {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+}
+
+/* Recording HUD across the top of the timeline. */
+.hud {
+  position: absolute;
+  top: calc(var(--header-h) + 0.75rem);
+  left: var(--gutter);
+  right: var(--gutter);
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.08em;
+  color: var(--c-text-dim);
+}
+
+.rec {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  color: var(--c-accent);
+}
+
+.rec i {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--c-accent);
+  animation: blink 1.2s steps(1, end) infinite;
+}
+
+.timecode {
+  color: var(--c-white);
+  font-variant-numeric: tabular-nums;
+}
+
+.track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 3.5rem);
+  height: 100%;
+  width: max-content;
+  padding: 0 var(--gutter);
+  will-change: transform;
+}
+
+/* Edit-ruler running beneath the clips. */
+.track::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--gutter) + 1rem);
+  height: 0.75rem;
+  background:
+    repeating-linear-gradient(to right, var(--c-line-strong) 0 1px, transparent 1px 1.5rem),
+    repeating-linear-gradient(to right, var(--c-line) 0 1px, transparent 1px 0.3rem);
+  background-size: 100% 100%, 100% 45%;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+
+.intro {
+  flex-shrink: 0;
+  width: clamp(20rem, 36vw, 36rem);
+}
+
+.reel {
+  position: relative;
+  flex-shrink: 0;
+  display: grid;
+  gap: 0.8rem;
+  width: min(19vw, 33svh);
+  transform-origin: center center;
+}
+
+.media {
+  outline: 1px solid var(--c-line);
+  outline-offset: 0;
+  transition: outline-color 0.4s, outline-offset 0.4s;
+}
+
+.reel[data-active='true'] .media {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 6px;
+}
+
+.caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--c-line-strong);
+  transition: background-color 0.3s;
+}
+
+.reel[data-active='true'] .dot {
+  background: var(--c-accent);
+}
+
+.outro {
+  flex-shrink: 0;
+  display: grid;
+  gap: 1rem;
+  width: clamp(16rem, 26vw, 26rem);
+}
+
+.outro p {
+  font-size: var(--t-l);
+  line-height: 1;
+}
+
+/* Fixed playhead at the centre of the frame. */
+.playhead {
+  position: absolute;
+  top: calc(var(--header-h) + 2.5rem);
+  bottom: var(--gutter);
+  left: 50%;
+  width: 1px;
+  background: var(--c-accent);
+  pointer-events: none;
+}
+
+.playhead::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -0.4rem;
+  border: 0.4rem solid transparent;
+  border-top: 0.55rem solid var(--c-accent);
+}
+
+/* Desktop timeline: only the clip under the playhead is in colour, so
+   dimmed neighbours read as grey — never as darkened accent. */
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .reel {
+    filter: grayscale(1);
+    transition: filter 0.5s var(--ease-out);
+  }
+
+  .reel[data-active='true'] {
+    filter: none;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Mobile & reduced motion: a native swipe carousel with snap points. */
+@media (max-width: 899px), (prefers-reduced-motion: reduce) {
+  .pin {
+    height: auto;
+    overflow: visible;
+    padding: calc(var(--section-y) * 0.6) 0 var(--section-y);
+  }
+
+  .hud {
+    position: static;
+    margin: 0 var(--gutter) 2rem;
+  }
+
+  .track {
+    width: auto;
+    height: auto;
+    align-items: flex-end;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding-bottom: 2.5rem;
+  }
+
+  .track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .track::after {
+    display: none;
+  }
+
+  .intro {
+    width: min(84vw, 26rem);
+    scroll-snap-align: start;
+  }
+
+  .reel {
+    width: min(64vw, 18rem);
+    scroll-snap-align: center;
+  }
+
+  .outro {
+    width: min(70vw, 20rem);
+    scroll-snap-align: end;
+  }
+
+  .playhead {
+    display: none;
+  }
+}

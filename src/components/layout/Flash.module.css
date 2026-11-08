@@ -1,0 +1,8 @@
+.flash {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-flash);
+  pointer-events: none;
+  background: var(--c-white);
+  opacity: 0;
+}

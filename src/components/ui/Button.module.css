@@ -1,0 +1,78 @@
+.button {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-height: 3.25rem;
+  padding: 0 1.5rem;
+  overflow: hidden;
+  border-radius: 999px;
+  font-family: var(--f-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  /* Colour flips mid-wipe; interpolating black ↔ accent would pass through olive. */
+  transition:
+    color 0s linear 0.16s,
+    border-color 0s linear 0.16s;
+}
+
+.button[data-size='sm'] {
+  min-height: 2.6rem;
+  padding: 0 1.15rem;
+  font-size: 0.75rem;
+}
+
+/* The wipe layer: a solid black panel that rises from the baseline. */
+.button::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  transform: translateY(101%);
+  transition: transform 0.6s var(--ease-out);
+}
+
+.button[data-variant='primary'] {
+  background: var(--c-accent);
+  color: var(--c-black);
+  border: 1px solid var(--c-accent);
+}
+
+.button[data-variant='primary']::before {
+  background: var(--c-black);
+}
+
+.button[data-variant='ghost'] {
+  background: transparent;
+  color: var(--c-white);
+  border: 1px solid var(--c-line-strong);
+}
+
+.button[data-variant='ghost']::before {
+  background: var(--c-accent);
+}
+
+@media (hover: hover) {
+  .button:hover::before {
+    transform: translateY(0);
+  }
+
+  .button[data-variant='primary']:hover {
+    color: var(--c-accent);
+  }
+
+  .button[data-variant='ghost']:hover {
+    color: var(--c-black);
+    border-color: var(--c-accent);
+  }
+}
+
+.button:active {
+  scale: 0.97;
+}
+

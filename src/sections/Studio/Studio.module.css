@@ -1,0 +1,66 @@
+.studio {
+  position: relative;
+  display: grid;
+  gap: clamp(3rem, 8vh, 6rem);
+  min-height: 100svh;
+  padding: var(--section-y) var(--gutter);
+}
+
+.head {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 60%;
+}
+
+.title {
+  font-size: var(--t-l);
+  line-height: 0.95;
+}
+
+/* Sits left so the lens (re-staged to the right) shares the frame. */
+.manifesto {
+  max-width: 23ch;
+  font-size: var(--t-l);
+  font-weight: 450;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--gutter);
+  align-items: end;
+}
+
+.portraitWrap {
+  max-width: 26rem;
+}
+
+.portrait {
+  aspect-ratio: 4 / 5;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gutter);
+  border-top: 1px solid var(--c-line);
+  padding-top: 1.5rem;
+}
+
+.fact {
+  display: grid;
+  gap: 0.6rem;
+}
+
+@media (max-width: 899px) {
+  .head {
+    max-width: none;
+  }
+
+  .grid,
+  .facts {
+    grid-template-columns: 1fr;
+  }
+}

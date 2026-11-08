@@ -1,0 +1,36 @@
+.link {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  color: var(--c-white);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+}
+
+/* The accent copy: same layout, black type, revealed by a clip-path wipe. */
+.fill {
+  position: absolute;
+  inset: 0;
+  background: var(--c-accent);
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.65s var(--ease-out);
+}
+
+.fill,
+.fill * {
+  color: var(--c-black) !important;
+  border-color: var(--c-black) !important;
+}
+
+.link:focus-visible .fill {
+  clip-path: inset(0 0 0 0);
+}
+
+@media (hover: hover) {
+  .link:hover .fill {
+    clip-path: inset(0 0 0 0);
+  }
+}

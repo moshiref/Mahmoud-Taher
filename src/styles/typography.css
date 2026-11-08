@@ -1,0 +1,49 @@
+/* Typographic primitives shared across sections. */
+
+.t-display {
+  font-family: var(--f-sans);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 0.86;
+}
+
+.t-serif {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.t-label {
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  font-weight: 450;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-text-dim);
+}
+
+.t-index {
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  color: var(--c-accent);
+}
+
+/* "(01) Label" eyebrow used to open each section. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75em;
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-text-dim);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 2.5em;
+  height: 1px;
+  background: var(--c-accent);
+}

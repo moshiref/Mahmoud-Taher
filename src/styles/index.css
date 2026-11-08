@@ -1,0 +1,4 @@
+@import 'lenis/dist/lenis.css';
+@import './tokens.css';
+@import './base.css';
+@import './typography.css';

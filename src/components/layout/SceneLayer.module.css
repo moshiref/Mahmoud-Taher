@@ -1,0 +1,59 @@
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-scene);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease-out);
+}
+
+.layer[data-ready='true'] {
+  opacity: 1;
+}
+
+/* No-WebGL fallback: the same composition, flat. */
+.fallback {
+  position: absolute;
+  inset: 0;
+  background: var(--c-black);
+}
+
+.slab {
+  position: absolute;
+  right: 12vw;
+  bottom: 9vh;
+  width: 36vh;
+  height: 72vh;
+  background: var(--c-black);
+  border: 1px solid var(--c-line);
+  clip-path: polygon(0 0, 100% 0, 100% 86%, 82% 100%, 18% 100%, 0 86%);
+}
+
+.portrait {
+  position: absolute;
+  right: 8vw;
+  bottom: 0;
+  height: 94vh;
+  width: auto;
+  /* Mirrored, matching the WebGL hero portrait. */
+  scale: -1 1;
+}
+
+@media (max-aspect-ratio: 1/1) {
+  .slab {
+    right: 50%;
+    translate: 50% 0;
+    top: 10vh;
+    bottom: auto;
+    width: 64vw;
+    height: 50vh;
+  }
+
+  .portrait {
+    right: 50%;
+    translate: 50% 0;
+    top: 8vh;
+    bottom: auto;
+    height: 58vh;
+  }
+}

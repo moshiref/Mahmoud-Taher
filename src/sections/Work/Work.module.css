@@ -1,0 +1,103 @@
+.work {
+  position: relative;
+  display: grid;
+  gap: clamp(1.75rem, 4vh, 2.75rem);
+  padding: clamp(3.5rem, 9vh, 5.5rem) var(--gutter) clamp(4rem, 10vh, 6rem);
+}
+
+.head {
+  display: grid;
+  gap: 1rem;
+}
+
+.title {
+  font-size: clamp(2rem, 3.6vw, 3.75rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+
+/* The category: one oversized editorial row. */
+.category {
+  border-block: 1px solid var(--c-line);
+}
+
+.categoryRow {
+  display: grid;
+  grid-template-columns: clamp(3rem, 6vw, 5.5rem) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+  padding: clamp(1.25rem, 3vh, 2rem) 0.75rem;
+}
+
+.categoryIndex {
+  font-family: var(--f-mono);
+  font-size: var(--t-s);
+  color: var(--c-accent);
+}
+
+.categoryName {
+  font-size: clamp(2.6rem, 8vw, 7.5rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+  text-transform: uppercase;
+}
+
+.categoryMeta {
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-text-dim);
+}
+
+/* Quick links to the four collections. */
+.collections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 2.25rem;
+}
+
+.collection {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.35rem 0;
+  font-size: var(--t-s);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-white);
+  background: linear-gradient(var(--c-accent), var(--c-accent)) left bottom / 0 1px no-repeat;
+  transition: background-size 0.5s var(--ease-out);
+}
+
+.collection:hover,
+.collection:focus-visible {
+  background-size: 100% 1px;
+}
+
+.collectionCount {
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  color: var(--c-accent);
+}
+
+@media (max-width: 767px) {
+  .categoryRow {
+    grid-template-columns: 2rem minmax(0, 1fr);
+    padding-inline: 0.25rem;
+  }
+
+  .categoryMeta {
+    display: none;
+  }
+
+  .collections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1rem;
+  }
+}

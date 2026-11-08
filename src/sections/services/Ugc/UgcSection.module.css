@@ -1,0 +1,185 @@
+.ugc {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: center;
+  gap: var(--gutter);
+  min-height: 100svh;
+  padding: var(--section-y) var(--gutter);
+}
+
+.copy {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.formats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.chip {
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--c-line-strong);
+  border-radius: 999px;
+  font-size: var(--t-s);
+  color: var(--c-text-dim);
+  transition:
+    background-color 0.4s,
+    color 0.4s,
+    border-color 0.4s;
+}
+
+.chip:hover {
+  border-color: var(--c-accent);
+  color: var(--c-white);
+}
+
+.chip[data-active='true'] {
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+  color: var(--c-black);
+}
+
+.stack {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 72svh;
+}
+
+.phone {
+  grid-area: 1 / 1;
+  width: clamp(9.5rem, 14vw, 15rem);
+  padding: 0.45rem;
+  border-radius: 1.9rem;
+  background: var(--c-black);
+  border: 1px solid var(--c-line-strong);
+  box-shadow: 0 2rem 4rem -1rem rgb(0 0 0 / 0.9);
+  will-change: transform;
+}
+
+/* The active format's phone lifts out of the pile. */
+.screen {
+  position: relative;
+  aspect-ratio: 9 / 19.5;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  transition: transform 0.7s var(--ease-out);
+}
+
+.phone[data-active='true'] {
+  border-color: var(--c-accent);
+}
+
+.phone[data-active='true'] .screen,
+.phone:hover .screen {
+  transform: translateY(-1.25rem);
+}
+
+.chrome {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 0.7rem 0.8rem 1rem;
+  font-family: var(--f-mono);
+  font-size: 0.58rem;
+  color: var(--c-white);
+  background: linear-gradient(to bottom, rgb(0 0 0 / 0.5), transparent 22%, transparent 62%, rgb(0 0 0 / 0.75));
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.island {
+  width: 32%;
+  height: 0.85rem;
+  border-radius: 999px;
+  background: var(--c-black);
+}
+
+.battery {
+  width: 1.1rem;
+  height: 0.5rem;
+  border: 1px solid var(--c-white);
+  border-radius: 2px;
+}
+
+.actions {
+  justify-self: end;
+  align-self: end;
+  display: grid;
+  gap: 0.7rem;
+  margin-bottom: 0.9rem;
+}
+
+.actions span {
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--c-white);
+}
+
+.actions span:first-child {
+  border-color: var(--c-accent);
+  background: var(--c-accent);
+}
+
+.meta {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.tag {
+  justify-self: start;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  background: var(--c-accent);
+  color: var(--c-black);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.line {
+  height: 0.3rem;
+  width: 85%;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.55);
+}
+
+.line[data-short] {
+  width: 55%;
+  background: rgb(255 255 255 / 0.3);
+}
+
+/* Mobile & reduced motion: a swipeable row of phones instead of the fan. */
+@media (max-width: 899px), (prefers-reduced-motion: reduce) {
+  .ugc {
+    grid-template-columns: 1fr;
+  }
+
+  .stack {
+    display: flex;
+    gap: 1rem;
+    min-height: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 1.75rem 0 1rem;
+    scrollbar-width: none;
+  }
+
+  .stack::-webkit-scrollbar {
+    display: none;
+  }
+
+  .phone {
+    flex-shrink: 0;
+    width: min(56vw, 15rem);
+    scroll-snap-align: center;
+  }
+}

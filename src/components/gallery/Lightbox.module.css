@@ -1,0 +1,186 @@
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-loader) - 1);
+  display: grid;
+  grid-template:
+    'top top top' auto
+    'prev stage next' minmax(0, 1fr)
+    'cap cap cap' auto
+    / auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0 clamp(0.75rem, 2vw, 1.75rem);
+  padding: clamp(0.75rem, 2vh, 1.25rem) var(--gutter);
+  color: var(--c-white);
+  touch-action: none;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--c-black);
+}
+
+.top {
+  grid-area: top;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: clamp(0.5rem, 1.5vh, 1rem);
+}
+
+.counter {
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.14em;
+  color: var(--c-text-dim);
+}
+
+.current {
+  color: var(--c-accent);
+}
+
+.stage {
+  grid-area: stage;
+  align-self: stretch;
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  user-select: none;
+}
+
+.frame {
+  position: relative;
+  will-change: transform;
+}
+
+.frame img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  -webkit-user-drag: none;
+}
+
+.full {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.full[data-loaded='true'] {
+  opacity: 1;
+}
+
+.caption {
+  grid-area: cap;
+  justify-self: center;
+  padding-top: clamp(0.5rem, 1.5vh, 1rem);
+  font-size: var(--t-s);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Round icon buttons: a solid accent disc scales in (no colour fade). */
+.button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  aspect-ratio: 1;
+  border: 1px solid var(--c-line-strong);
+  border-radius: 50%;
+  color: var(--c-white);
+  background: none;
+  cursor: pointer;
+  isolation: isolate;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--c-accent);
+  transform: scale(0);
+  transition: transform 0.45s var(--ease-out);
+}
+
+.button svg {
+  width: 40%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+}
+
+.button:focus-visible {
+  outline: none;
+  color: var(--c-black);
+}
+
+.button:focus-visible::before {
+  transform: scale(1);
+}
+
+@media (hover: hover) {
+  .button:hover {
+    color: var(--c-black);
+  }
+
+  .button:hover::before {
+    transform: scale(1);
+  }
+}
+
+/*
+ * Previous / next: invisible full-height click zones either side of the
+ * image (no icons). Same width as the close button, so the stage keeps its
+ * size; arrow keys and swipe work as well.
+ */
+.zone {
+  align-self: stretch;
+  width: 3rem;
+  min-height: 3rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.zone:focus-visible {
+  outline: 1px solid var(--c-accent);
+  outline-offset: -1px;
+}
+
+.prev {
+  grid-area: prev;
+}
+
+.next {
+  grid-area: next;
+}
+
+@media (max-width: 767px) {
+  .root {
+    grid-template:
+      'top top top' auto
+      'stage stage stage' minmax(0, 1fr)
+      'prev cap next' auto
+      / auto minmax(0, 1fr) auto;
+  }
+
+  .caption {
+    padding-top: 0;
+    font-size: var(--t-xs);
+  }
+
+  .prev,
+  .next {
+    margin-top: 0.75rem;
+  }
+}

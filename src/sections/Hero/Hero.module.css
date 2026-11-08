@@ -1,0 +1,226 @@
+/*
+ * Landscape layout: the name block sits left and vertically centred; the
+ * portrait (WebGL, right of centre) and its accent slab fill the rest.
+ * The 3D services marquee runs along the bottom, in front of the T-shirt.
+ */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  padding: calc(var(--header-h) + 1.5rem) var(--gutter) var(--gutter);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.intro {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 1.25rem 0 0 2.4rem;
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-text-dim);
+}
+
+.introRule {
+  width: 2.5rem;
+  height: 1px;
+  background: var(--c-accent);
+}
+
+.content {
+  align-self: center;
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: clamp(1rem, 2.4vh, 1.6rem);
+  max-width: min(50vw, 48rem);
+  padding-left: 2.4rem;
+  will-change: transform;
+}
+
+.name {
+  display: grid;
+  font-size: min(7.4vw, 14vh);
+  font-weight: 800;
+  line-height: 0.84;
+  letter-spacing: -0.055em;
+  color: var(--c-white);
+}
+
+.nameLine {
+  display: flex;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+.dot {
+  display: inline-block;
+  color: var(--c-accent);
+  transform-origin: 50% 80%;
+}
+
+.mask {
+  overflow: hidden;
+}
+
+.role {
+  font-size: clamp(0.8rem, 1.05vw, 1rem);
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+
+.description {
+  max-width: 36ch;
+  font-size: var(--t-body);
+  line-height: 1.55;
+  color: var(--c-text-dim);
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.4rem;
+}
+
+/* Hero "Let's talk" only — larger, to balance the headline. Scoped through
+   .ctas so the shared Button (and the navbar CTA) stay untouched. */
+.ctas .talk {
+  min-height: 3.875rem;
+  padding: 0 2.35rem;
+  font-size: 0.9375rem;
+  letter-spacing: 0.14em;
+}
+
+/*
+ * Services: the slot the 3D marquee renders into. Its height sets the type
+ * size; the strip itself bleeds to the screen edges.
+ */
+.specs {
+  position: relative;
+  height: clamp(4rem, 8vh, 5.5rem);
+  border-top: 1px solid var(--c-line);
+}
+
+/* No-WebGL fallback: the services as a static row, accent and white alternating. */
+.specsFallback {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  height: 100%;
+  gap: 0.4rem 1.75rem;
+  font-size: clamp(0.85rem, 1.4vw, 1.1rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.specsFallback li:nth-child(odd) {
+  color: var(--c-accent);
+}
+
+.scrollCue {
+  position: absolute;
+  right: calc(var(--gutter) + 0.25rem);
+  top: 50%;
+  translate: 0 -50%;
+  display: grid;
+  justify-items: center;
+  gap: 0.8rem;
+  font-family: var(--f-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  color: var(--c-text-dim);
+}
+
+.scrollCue i {
+  position: relative;
+  width: 1px;
+  height: 4rem;
+  overflow: hidden;
+  background: var(--c-line);
+}
+
+.scrollCue i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--c-accent);
+  animation: drip 2.4s var(--ease-in-out) infinite;
+}
+
+@keyframes drip {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%,
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/*
+ * Portrait-orientation layout (phones, portrait tablets): the 3D portrait
+ * owns the top of the screen; the name overlaps its lower edge (the black
+ * T-shirt) and the copy stacks below — deliberately composed, not shrunk.
+ */
+@media (max-aspect-ratio: 1/1) {
+  .hero {
+    display: flex;
+    flex-direction: column;
+    padding-top: calc(var(--header-h) + 0.75rem);
+    padding-bottom: calc(var(--gutter) * 2);
+  }
+
+  /* Label and name start below the T-shirt print so nothing competes with them. */
+  .intro {
+    margin: max(46svh, 17rem) 0 0;
+    font-size: 0.625rem;
+  }
+
+  .content {
+    margin-top: 1.1rem;
+    max-width: none;
+    padding-left: 0;
+    gap: 1.1rem;
+  }
+
+  .name {
+    font-size: min(17vw, 8rem);
+  }
+
+  .role {
+    font-size: 0.75rem;
+    letter-spacing: 0.26em;
+  }
+
+  .ctas {
+    width: 100%;
+  }
+
+  .ctas > * {
+    flex: 1 1 12rem;
+  }
+
+  .ctas a,
+  .ctas button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .specs {
+    height: clamp(3.5rem, 13vw, 5.5rem);
+    margin-top: 2.5rem;
+  }
+
+  .scrollCue {
+    display: none;
+  }
+}

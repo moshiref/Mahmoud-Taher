@@ -1,0 +1,56 @@
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-loader);
+  display: grid;
+  place-items: center;
+}
+
+.loader[data-phase='exiting'] {
+  pointer-events: none;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--c-black);
+}
+
+/* The first light: a hairline of brand accent opening across the dark. */
+.light {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(42rem, 70vw);
+  height: 1px;
+  translate: -50% -50%;
+  background: var(--c-accent);
+  transform: scaleX(0);
+}
+
+/* The official logo at its native proportions. */
+.logo {
+  position: relative;
+  height: clamp(6.5rem, 18vh, 10rem);
+  clip-path: inset(50% 0% 50% 0%);
+  will-change: transform, clip-path;
+}
+
+.logo img {
+  height: 100%;
+  width: auto;
+}
+
+.captionMask {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--gutter) * 1.5);
+  translate: -50% 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.caption {
+  display: block;
+  color: var(--c-white);
+}

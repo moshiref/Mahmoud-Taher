@@ -1,0 +1,62 @@
+/* ──────────────────────────────────────────────────────────
+   Design tokens — the visual identity in one place.
+
+   The brand has exactly three colours. Every variant below is
+   one of them at reduced opacity, never a new hue.
+     Black  — dominant: backgrounds, surfaces, most of the page
+     Accent — strategic accent: interaction, highlights, motion.
+              #AA9000, the logo's primary colour (its most-used
+              pixel colour, read straight from logo.png).
+     White  — least used: typography and fine detail
+
+   The accent is only ever used solid (or as a thin line), never
+   faded over black, so it always matches the logo exactly.
+   ────────────────────────────────────────────────────────── */
+:root {
+  /* Brand colours */
+  --c-black: #000000;
+  --c-accent: #aa9000;
+  --c-white: #ffffff;
+
+  /* Opacity variants (still the same three colours) */
+  --c-text: var(--c-white);
+  --c-text-dim: rgb(255 255 255 / 0.62);
+  --c-text-faint: rgb(255 255 255 / 0.38);
+  --c-line: rgb(255 255 255 / 0.12);
+  --c-line-strong: rgb(255 255 255 / 0.28);
+
+  /* Type families */
+  --f-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --f-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --f-mono: 'Geist Mono Variable', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* Fluid type scale */
+  --t-hero: clamp(4.75rem, 17vw, 20rem);
+  --t-xxl: clamp(3.4rem, 10vw, 11.5rem);
+  --t-xl: clamp(2.6rem, 7.2vw, 8rem);
+  --t-l: clamp(2rem, 4.4vw, 4.75rem);
+  --t-m: clamp(1.35rem, 2.3vw, 2.25rem);
+  --t-body: clamp(1rem, 1.05vw, 1.125rem);
+  --t-s: 0.875rem;
+  --t-xs: 0.6875rem;
+
+  /* Space */
+  --gutter: clamp(1rem, 3.2vw, 2.75rem);
+  --section-y: clamp(6rem, 18vh, 13rem);
+  --header-h: 4.75rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.87, 0, 0.13, 1);
+  --dur-fast: 0.35s;
+  --dur-base: 0.7s;
+
+  /* Layers */
+  --z-scene: 0;
+  --z-hud: 20;
+  --z-menu: 25;
+  --z-header: 30;
+  --z-flash: 45;
+  --z-grain: 50;
+  --z-loader: 70;
+}

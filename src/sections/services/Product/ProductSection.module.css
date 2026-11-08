@@ -1,0 +1,115 @@
+.product {
+  position: relative;
+  display: grid;
+  gap: clamp(3rem, 9vh, 7rem);
+  padding: var(--section-y) 0;
+}
+
+/* The lens hangs top-left in this chapter, so the copy sits right. */
+.header {
+  justify-self: end;
+  width: min(100% - var(--gutter) * 2, 52rem);
+  margin-right: var(--gutter);
+}
+
+.stage {
+  position: relative;
+  height: min(100svh, 56.25vw);
+  min-height: 26rem;
+  overflow: hidden;
+  will-change: clip-path;
+}
+
+/* Studio spotlight: a soft pool of light; everything else falls to black. */
+.light {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 45%), transparent 10%, rgb(0 0 0 / 0.55) 24%, rgb(0 0 0 / 0.93) 46%);
+}
+
+/* A solid accent focus bracket marks the centre of the light. */
+.light::after {
+  content: '';
+  position: absolute;
+  left: var(--x, 50%);
+  top: var(--y, 45%);
+  width: 3rem;
+  height: 3rem;
+  translate: -50% -50%;
+  background:
+    linear-gradient(var(--c-accent), var(--c-accent)) top left / 0.7rem 1px no-repeat,
+    linear-gradient(var(--c-accent), var(--c-accent)) top left / 1px 0.7rem no-repeat,
+    linear-gradient(var(--c-accent), var(--c-accent)) top right / 0.7rem 1px no-repeat,
+    linear-gradient(var(--c-accent), var(--c-accent)) top right / 1px 0.7rem no-repeat,
+    linear-gradient(var(--c-accent), var(--c-accent)) bottom left / 0.7rem 1px no-repeat,
+    linear-gradient(var(--c-accent), var(--c-accent)) bottom left / 1px 0.7rem no-repeat,
+    linear-gradient(var(--c-accent), var(--c-accent)) bottom right / 0.7rem 1px no-repeat,
+    linear-gradient(var(--c-accent), var(--c-accent)) bottom right / 1px 0.7rem no-repeat;
+}
+
+.hint {
+  position: absolute;
+  left: var(--gutter);
+  bottom: var(--gutter);
+  color: var(--c-white);
+}
+
+.body {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: var(--gutter);
+  padding: 0 var(--gutter);
+  align-items: start;
+}
+
+.pillars {
+  display: grid;
+  border-top: 1px solid var(--c-line);
+}
+
+.pillar {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--c-line);
+  font-size: var(--t-m);
+  letter-spacing: -0.03em;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gutter);
+}
+
+.detail:nth-child(2) {
+  margin-top: 18%;
+}
+
+.detailFrame {
+  aspect-ratio: 4 / 5;
+}
+
+@media (max-width: 899px) {
+  .header {
+    justify-self: stretch;
+    width: auto;
+    margin-inline: var(--gutter);
+  }
+
+  .stage {
+    height: 70svh;
+    min-height: 0;
+  }
+
+  .body,
+  .details {
+    grid-template-columns: 1fr;
+  }
+
+  .detail:nth-child(2) {
+    margin-top: 0;
+  }
+}

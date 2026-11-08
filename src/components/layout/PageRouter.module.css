@@ -1,0 +1,18 @@
+/* Route-change curtain: solid black with a accent hairline — no fades. */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-loader) - 2);
+  display: grid;
+  place-items: center;
+  background: var(--c-black);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.line {
+  width: min(32rem, 60vw);
+  height: 1px;
+  background: var(--c-accent);
+  transform-origin: left center;
+}

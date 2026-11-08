@@ -1,0 +1,29 @@
+.header {
+  display: grid;
+  gap: clamp(1rem, 2.5vh, 1.75rem);
+}
+
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.index {
+  font-family: var(--f-mono);
+  font-size: var(--t-s);
+  color: var(--c-black);
+  background: var(--c-accent);
+  padding: 0.2em 0.5em;
+}
+
+.title {
+  font-size: var(--t-xl);
+  line-height: 0.9;
+}
+
+.statement {
+  max-width: 34ch;
+  font-size: var(--t-body);
+  color: var(--c-text-dim);
+}

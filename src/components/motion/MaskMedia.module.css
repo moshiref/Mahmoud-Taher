@@ -1,0 +1,11 @@
+.frame {
+  position: relative;
+  overflow: hidden;
+  will-change: clip-path;
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}

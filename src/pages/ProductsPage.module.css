@@ -1,0 +1,109 @@
+.page {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  align-content: start;
+  gap: clamp(2.5rem, 7vh, 4.5rem);
+  padding: calc(var(--header-h) + clamp(3rem, 9vh, 6rem)) var(--gutter) clamp(4rem, 10vh, 6rem);
+}
+
+/* Centred title block. */
+.intro {
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+  text-align: center;
+}
+
+.crumbs {
+  display: flex;
+  gap: 0.6rem;
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-text-dim);
+}
+
+.crumbs a {
+  color: var(--c-white);
+  transition: color 0.3s;
+}
+
+.crumbs a:hover,
+.crumbs a:focus-visible {
+  color: var(--c-accent);
+}
+
+.title {
+  font-size: clamp(3.75rem, 14vw, 13rem);
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  color: var(--c-white);
+}
+
+.meta {
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+
+/* The collections index. */
+.list {
+  width: min(100%, 72rem);
+  justify-self: center;
+  border-top: 1px solid var(--c-line);
+}
+
+.row {
+  border-bottom: 1px solid var(--c-line);
+}
+
+.rowContent {
+  display: grid;
+  grid-template-columns: clamp(2.5rem, 5vw, 4.5rem) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2.25rem);
+  padding: clamp(1.1rem, 2.8vh, 1.75rem) 0.75rem;
+}
+
+.index {
+  font-family: var(--f-mono);
+  font-size: var(--t-s);
+  color: var(--c-accent);
+}
+
+.name {
+  font-size: clamp(1.75rem, 4.6vw, 4rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+
+.status {
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-text-dim);
+  white-space: nowrap;
+}
+
+
+
+@media (max-width: 767px) {
+  .rowContent {
+    grid-template-columns: 2rem minmax(0, 1fr);
+    padding-inline: 0.25rem;
+  }
+
+  .status {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
