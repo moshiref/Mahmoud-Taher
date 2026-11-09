@@ -5,17 +5,16 @@
  *  channels (socials) are the real ones supplied by Mahmoud. `email`,
  *  `location` and `timeZone` are still PLACEHOLDERS (not shown in the
  *  Contact section) — replace them with real ones.
- *  Logo is the official asset, used as provided. The portrait is the
- *  official photo with the T-shirt print removed (requested edit); the
- *  unedited original is kept in src/assets/brand/portrait-original.png.
+ *  Logo is the official asset, used as provided. The hero portrait is
+ *  the supplied transparent PNG (portrait-hero.png), used exactly as
+ *  provided — no re-encode, no resize.
  * ─────────────────────────────────────────────────────────────
  */
 // Display renditions of the official assets: lossless scale-downs, same pixels
 // at display size. The full-size files (logo.png, portrait-plain-shirt.webp)
 // stay in src/assets/brand untouched.
 import logo from '@/assets/brand/logo-512.webp'
-import portrait from '@/assets/brand/portrait-plain-shirt.webp'
-import portraitSmall from '@/assets/brand/portrait-plain-shirt-760.webp'
+import portrait from '@/assets/brand/portrait-hero.png'
 
 export const brand = {
   name: 'Mahmoud Taher',
@@ -30,9 +29,9 @@ export const brand = {
   /** Official logo, 463×512 lossless (largest display is ~160px tall). */
   logo,
   /** Transparent cut-out portrait. Native pixel size, used for layout maths. */
-  portrait: { src: portrait, width: 1086, height: 1448 },
-  /** The same portrait at 760px wide (lossless) — the WebGL texture on phones and tablets. */
-  portraitSmall: portraitSmall,
+  portrait: { src: portrait, width: 1024, height: 1536 },
+  /** Phones and tablets use the same supplied file (kept unmodified). */
+  portraitSmall: portrait,
 
   /** Contact channels, in display order. `handle` is read off each URL. */
   socials: [

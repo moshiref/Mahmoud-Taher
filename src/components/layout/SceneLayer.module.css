@@ -35,8 +35,6 @@
   bottom: 0;
   height: 94vh;
   width: auto;
-  /* Mirrored, matching the WebGL hero portrait. */
-  scale: -1 1;
 }
 
 @media (max-aspect-ratio: 1/1) {

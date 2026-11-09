@@ -195,9 +195,8 @@ export function HeroStage({ reduced, quality }: { reduced: boolean; quality: Dev
       />
 
       <group ref={portrait} position={layout.portrait.position}>
-        {/* Mirrored horizontally about its own centre: same box, same pixels.
-            Hit-testing still samples the texture by UV, so hover stays exact. */}
-        <group scale-x={-1}>
+        {/* Shown unmirrored so the camera and shirt text read correctly. */}
+        <group>
           <mesh material={layers.rim} position-z={-0.02}>
             <planeGeometry args={[pw, ph]} />
           </mesh>

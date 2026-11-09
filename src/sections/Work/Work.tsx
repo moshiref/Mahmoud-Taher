@@ -2,10 +2,13 @@ import { Reveal } from '@/components/motion/Reveal'
 import { SplitReveal } from '@/components/motion/SplitReveal'
 import { RouteLink } from '@/components/navigation/RouteLink'
 import { HighlightLink } from '@/components/ui/HighlightLink'
+import buttonStyles from '@/components/ui/Button.module.css'
 import { collections } from '@/content/products'
 import { reels } from '@/content/reels'
 import { ugc } from '@/content/ugc'
 import styles from './Work.module.css'
+
+const BEHANCE_URL = 'https://www.behance.net/mahmoudtaher500'
 
 const pad = (n: number) => String(n).padStart(2, '0')
 
@@ -63,6 +66,25 @@ export function Work() {
           <span className={styles.categoryName}>UGC</span>
           <span className={styles.categoryMeta}>{pad(ugc.length)} projects</span>
         </HighlightLink>
+      </Reveal>
+
+      {/* Closing call-out: after every category, the way out to the full archive. */}
+      <Reveal start="top 95%" className={styles.more}>
+        <p className={styles.moreText}>To see more of my work</p>
+        <a
+          href={BEHANCE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`${buttonStyles.button} ${styles.moreButton}`}
+          data-variant="primary"
+          data-size="md"
+          aria-label="Watch more of my work on Behance (opens in a new tab)"
+        >
+          <span>Watch</span>
+          <svg className={styles.moreArrow} viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" strokeWidth="1.5" />
+          </svg>
+        </a>
       </Reveal>
     </section>
   )

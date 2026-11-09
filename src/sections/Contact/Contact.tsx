@@ -7,9 +7,6 @@ import styles from './Contact.module.css'
 
 const pad = (n: number) => String(n).padStart(2, '0')
 
-/** Footer signature: opens a WhatsApp chat with Engineer Mohamed Sherif (01274776417). */
-const SIGNATURE_WHATSAPP = 'https://wa.me/201274776417'
-
 /**
  * Contact — the closing chapter: a large two-line heading, one line of
  * copy, and the four real channels as tiles. Each tile is one link to the
@@ -63,15 +60,7 @@ export function Contact() {
       </Reveal>
 
       <Reveal as="footer" mode="wipe" start="top 99%" className={styles.footer}>
-        <a
-          className={styles.signature}
-          href={SIGNATURE_WHATSAPP}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Engineer Mohamed Sherif — chat on WhatsApp (opens in a new tab)"
-        >
-          Engineer Mohamed Sherif
-        </a>
+        <p className={styles.signature}>© 2026 Mahmoud Taher. All Rights Reserved.</p>
       </Reveal>
     </section>
   )
