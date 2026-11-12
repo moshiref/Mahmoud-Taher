@@ -7,14 +7,12 @@ export const chapters = ['hero', 'about', 'work', 'contact'] as const
 export type ChapterId = (typeof chapters)[number]
 
 /**
- * Primary navigation. `target` is the id of the section a link scrolls to.
- * `hero`, `about`, `work` and `contact` exist; the other links activate
- * automatically once sections with those ids ship.
+ * Primary navigation. `target` is the id of a section on the home page;
+ * every entry must exist there (the Services index lives inside About).
  */
 export const navItems = [
   { label: 'Home', target: 'hero' },
   { label: 'About', target: 'about' },
-  { label: 'Services', target: 'services' },
   { label: 'Work', target: 'work' },
   { label: 'Contact', target: 'contact' },
 ] as const

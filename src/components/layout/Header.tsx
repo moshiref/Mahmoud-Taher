@@ -13,8 +13,6 @@ import { isFinePointer } from '@/lib/device'
 import { matchRoute, navigate, useLocationPath } from '@/lib/router'
 import styles from './Header.module.css'
 
-const mailto = `mailto:${brand.email}`
-
 /**
  * Cinematic navigation: transparent over the hero, settling into a blurred
  * black bar once you scroll. The logo arrives from the intro sequence, nav
@@ -130,8 +128,8 @@ export function Header() {
   }, [open])
 
   /**
-   * Scrolls to a section if it exists (Contact arrives in a later stage).
-   * From the products pages it routes home first, landing on the section.
+   * Scrolls to a home-page section. From the other pages it routes home
+   * first, landing on the section.
    */
   const go = (target: string) => {
     // Resume Lenis before scrolling: start() resets any in-flight scroll animation.
@@ -190,7 +188,14 @@ export function Header() {
         <div className={styles.actions}>
           <Magnetic strength={0.3} className={styles.cta}>
             <span data-nav-reveal style={{ display: 'inline-block' }}>
-              <Button href={mailto} size="sm">
+              <Button
+                href="/#contact"
+                size="sm"
+                onClick={(e) => {
+                  e.preventDefault()
+                  go('contact')
+                }}
+              >
                 Let’s talk
               </Button>
             </span>
@@ -232,13 +237,17 @@ export function Header() {
         </ul>
         <div className={styles.menuFoot}>
           <span data-menu-item style={{ display: 'block' }}>
-            <Button href={mailto} tabIndex={open ? 0 : -1}>
+            <Button
+              href="/#contact"
+              tabIndex={open ? 0 : -1}
+              onClick={(e) => {
+                e.preventDefault()
+                go('contact')
+              }}
+            >
               Let’s talk
             </Button>
           </span>
-          <a className={`${styles.menuMail} t-label`} href={mailto} tabIndex={open ? 0 : -1}>
-            {brand.email}
-          </a>
         </div>
       </div>
     </>

@@ -133,7 +133,16 @@ export function Hero() {
         </p>
 
         <div className={styles.ctas} data-hero-fade>
-          <Button href={`mailto:${brand.email}`} variant="ghost" className={styles.talk}>
+          <Button
+            href="#contact"
+            variant="ghost"
+            className={styles.talk}
+            onClick={(e) => {
+              e.preventDefault()
+              const contact = document.getElementById('contact')
+              if (contact) scrollTo(contact)
+            }}
+          >
             Let’s talk
           </Button>
         </div>
