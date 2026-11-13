@@ -1,7 +1,7 @@
 /**
- * Shared helper for galleries of Behance projects (Reels, UGC).
+ * Shared helper for galleries of Behance projects (Reels, UGC, Event's).
  * Each entry links to its project; the thumbnail is one of the project's own
- * video poster frames, extracted by scripts/add_behance_reel.mjs.
+ * video poster frames (or, for Event's, its cover image).
  */
 import type { GalleryImage } from '@/components/gallery/Gallery'
 
@@ -14,11 +14,12 @@ export const behanceCollection =
   (folder: string) =>
   (url: string, title: string, width = 1080, height = 1920): GalleryImage => {
     const id = /\/gallery\/(\d+)/.exec(url)?.[1] ?? url
+    const kind = folder === 'ugc' ? 'UGC' : folder === 'events' ? 'event' : 'reel'
     const base = `/${folder}/${id}`
     return {
       id: `${folder}-${id}`,
       title,
-      alt: `${title} — ${folder === 'ugc' ? 'UGC' : 'reel'} thumbnail`,
+      alt: `${title} — ${kind} thumbnail`,
       width,
       height,
       href: url,

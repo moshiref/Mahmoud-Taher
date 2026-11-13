@@ -1,7 +1,7 @@
 /**
- * Add a Behance project to the Reels (or UGC) page from its URL alone.
+ * Add a Behance project to the Reels, UGC or Event's page from its URL alone.
  *
- *   node scripts/add_behance_reel.mjs <behance-project-url> [--to reels|ugc] [--frame <n>] [--title <alt text>]
+ *   node scripts/add_behance_reel.mjs <behance-project-url> [--to reels|ugc|events] [--frame <n>] [--title <alt text>]
  *
  * --title overrides the project title used for alt text.
  * --to picks the gallery (default reels): data in src/content/<to>.ts,
@@ -34,8 +34,8 @@ const toArg = args.indexOf('--to')
 const to = toArg >= 0 ? args[toArg + 1] : 'reels'
 const titleArg = args.indexOf('--title')
 const projectId = url && /behance\.net\/gallery\/(\d+)/.exec(url)?.[1]
-if (!url || !projectId || Number.isNaN(frame) || !['reels', 'ugc'].includes(to)) {
-  console.error('usage: node scripts/add_behance_reel.mjs <https://www.behance.net/gallery/<id>/<name>> [--to reels|ugc] [--frame <n>]')
+if (!url || !projectId || Number.isNaN(frame) || !['reels', 'ugc', 'events'].includes(to)) {
+  console.error('usage: node scripts/add_behance_reel.mjs <https://www.behance.net/gallery/<id>/<name>> [--to reels|ugc|events] [--frame <n>]')
   process.exit(1)
 }
 

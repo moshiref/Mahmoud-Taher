@@ -6,6 +6,7 @@
  *   /products/:slug      one collection
  *   /reels               reels (thumbnails linking to Behance)
  *   /ugc                 UGC (same page as reels)
+ *   /events              Event's (same page as reels)
  *
  * `navigate()` pushes a URL; `useLocationPath()` re-renders on change; the
  * non-React `currentPath()` lets the WebGL scene read the route per frame.
@@ -19,6 +20,7 @@ export type Route =
   | { name: 'collection'; slug: string }
   | { name: 'reels' }
   | { name: 'ugc' }
+  | { name: 'events' }
 
 type Listener = () => void
 const listeners = new Set<Listener>()
@@ -55,6 +57,7 @@ export function matchRoute(path: string): Route {
   if (clean === '/products') return { name: 'products' }
   if (clean === '/reels') return { name: 'reels' }
   if (clean === '/ugc') return { name: 'ugc' }
+  if (clean === '/events') return { name: 'events' }
   const collection = /^\/products\/([\w-]+)$/.exec(clean)
   if (collection) return { name: 'collection', slug: collection[1] }
   return { name: 'home' }

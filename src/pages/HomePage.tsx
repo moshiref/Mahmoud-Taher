@@ -3,12 +3,10 @@ import { useChapterTracker } from '@/hooks/useChapterTracker'
 import { Hero } from '@/sections/Hero/Hero'
 import { About } from '@/sections/About/About'
 import { Work } from '@/sections/Work/Work'
-import { Birthday } from '@/sections/Birthday/Birthday'
 import { Contact } from '@/sections/Contact/Contact'
 
 /**
- * Home: hero, About, Work (links to /products, /reels, /ugc), Birthday
- * Photography (not a 3D chapter, so no data-chapter) and Contact.
+ * Home: hero, About, Work (links to /products, /reels, /ugc, /events) and Contact.
  * Section order must match `chapters` in config/sections.ts.
  */
 export function HomePage() {
@@ -20,7 +18,6 @@ export function HomePage() {
       <Hero />
       <About />
       <Work />
-      <Birthday />
       <Contact />
     </main>
   )

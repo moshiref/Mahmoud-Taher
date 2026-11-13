@@ -8,6 +8,7 @@ import { CollectionPage } from '@/pages/CollectionPage'
 import { BehancePage } from '@/pages/BehancePage'
 import { reels } from '@/content/reels'
 import { ugc } from '@/content/ugc'
+import { events } from '@/content/events'
 import styles from './PageRouter.module.css'
 
 /**
@@ -93,6 +94,7 @@ export function PageRouter() {
       {shown.name === 'collection' && <CollectionPage slug={shown.slug} />}
       {shown.name === 'reels' && <BehancePage key="reels" title="Reels" slug="reels" items={reels} />}
       {shown.name === 'ugc' && <BehancePage key="ugc" title="UGC" slug="ugc" items={ugc} />}
+      {shown.name === 'events' && <BehancePage key="events" title="Event's" slug="events" items={events} />}
       <div ref={curtain} className={styles.curtain} aria-hidden="true">
         <span className={styles.line} />
       </div>

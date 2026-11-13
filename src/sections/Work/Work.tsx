@@ -6,6 +6,7 @@ import buttonStyles from '@/components/ui/Button.module.css'
 import { collections } from '@/content/products'
 import { reels } from '@/content/reels'
 import { ugc } from '@/content/ugc'
+import { events } from '@/content/events'
 import styles from './Work.module.css'
 
 const BEHANCE_URL = 'https://www.behance.net/mahmoudtaher500'
@@ -14,7 +15,8 @@ const pad = (n: number) => String(n).padStart(2, '0')
 
 /**
  * Work — the entry point to the portfolio's categories: Products (leading
- * to /products and its collections), Reels (/reels) and UGC (/ugc).
+ * to /products and its collections), Reels (/reels), UGC (/ugc) and
+ * Event's (/events).
  */
 export function Work() {
   return (
@@ -65,6 +67,14 @@ export function Work() {
           <span className={styles.categoryIndex}>03</span>
           <span className={styles.categoryName}>UGC</span>
           <span className={styles.categoryMeta}>{pad(ugc.length)} projects</span>
+        </HighlightLink>
+      </Reveal>
+
+      <Reveal mode="wipe" start="top 95%">
+        <HighlightLink to="/events" className={styles.category} contentClassName={styles.categoryRow} label="Event's — view all event projects">
+          <span className={styles.categoryIndex}>04</span>
+          <span className={styles.categoryName}>Event's</span>
+          <span className={styles.categoryMeta}>{pad(events.length)} projects</span>
         </HighlightLink>
       </Reveal>
 
